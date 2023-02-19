@@ -1,4 +1,4 @@
-﻿#include "Money.h" 
+﻿#include "Time.h" 
 #include "deque" 
 #include "queue" 
 #include <iostream> 
@@ -6,14 +6,14 @@
 #include <algorithm> 
 using namespace std;
 
-typedef queue<Money>que;
-typedef deque<Money>deq;
+typedef queue<Time>que;
+typedef deque<Time>deq;
 
 //формирование вектора 
 que make_queue(int n)
 {
 	que s;
-	Money t;
+	Time t;
 	for (int i = 0; i < n; i++)
 	{
 		cin >> t;//ввод переменной 
@@ -48,23 +48,23 @@ que copy_deque_to_queue(deq v)
 //функция для печати
 void print_queue(que s)
 {
-	cout << endl;
+	std::cout << endl;
 	deq v = copy_queue_to_deque(s);// копируем стек в вектор 
 	while (!s.empty())
 	{
-		cout << s.front() << endl;
+		std::cout << s.front() << endl;
 		s.pop();
 	}
 	s = copy_deque_to_queue(v);//скопировать вектор в стек  
-	cout << endl;
+	std::cout << endl;
 }
 
 
-Money s;
+Time s;
 
 struct Greater_s //больше, чем s 
 {
-	bool operator()(Money t)
+	bool operator()(Time t)
 	{
 		if (t > s) return true; else return false;
 	}
@@ -73,7 +73,7 @@ struct Greater_s //больше, чем s
 struct Comp_less // для сортировки по убыванию 
 {
 public:
-	bool operator()(Money t1, Money t2)
+	bool operator()(Time t1, Time t2)
 	{
 
 		if (t1 > t2)return true;
@@ -83,32 +83,32 @@ public:
 
 
 //вычисление среднего значения 
-Money minmax(que s)
+Time minmax(que s)
 {
 	deq v = copy_queue_to_deque(s);// копируем стек в вектор 
 	deq::iterator x;
 	x = min_element(v.begin(), v.end());
-	cout << "min=" << *(x) << endl;
-	Money g = *(x);
+	std::cout << "min=" << *(x) << endl;
+	Time g = *(x);
 
 	deq::iterator y;
 	y = max_element(v.begin(), v.end());
-	cout << "max=" << *(y) << endl;
-	Money h = *(y);
-	Money p = h + g;
-	cout << "min+max=" << p << endl;
+	std::cout << "max=" << *(y) << endl;
+	Time h = *(y);
+	Time p = h + g;
+	std::cout << "min+max=" << p << endl;
 	return p;
 }
 
 struct Equal_s
 {
-	bool operator()(Money t)
+	bool operator()(Time t)
 	{
 		return t == s;
 	}
 };
 
-void del(Money& t)
+void del(Time& t)
 {
 	t = t + s;
 }
@@ -117,7 +117,7 @@ void del(Money& t)
 void main()
 {
 	int n;
-	cout << "N?";
+	cout << "kolvo elementov: ";
 	cin >> n;
 	que v;
 	v = make_queue(n);
@@ -129,7 +129,7 @@ void main()
 	vv = copy_queue_to_deque(v);
 	i = min_element(vv.begin(), vv.end());
 	cout << "min=" << *(i) << endl;
-	Money m = *(i);
+	Time m = *(i);
 	vv.push_back(m);
 	v = copy_deque_to_queue(vv);
 	print_queue(v);
